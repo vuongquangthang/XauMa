@@ -1,7 +1,6 @@
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { ASSETS } from '../../constants/assets'
-import GlassReveal from '../GlassReveal'
 
 export default function Hero() {
   return (
