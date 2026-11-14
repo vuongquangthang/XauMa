@@ -101,7 +101,7 @@ export default function Header() {
                 className="w-full h-full object-contain max-w-full max-h-full"
               />
             </div>
-            <div className="flex items-center -translate-y-0.5">
+            <div className="hidden xs:flex items-center -translate-y-0.5">
               <img
                 src={ASSETS.brandTextTransparent}
                 alt="XẤU MÃ - Nâng niu nông sản Việt"
