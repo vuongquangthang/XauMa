@@ -12,7 +12,6 @@ import FinalCTA from './components/sections/FinalCTA'
 import Footer from './components/layout/Footer'
 import CartDrawer from './components/cart/CartDrawer'
 import FloatingCartButton from './components/cart/FloatingCartButton'
-import MobileCTA from './components/layout/MobileCTA'
 import AiShoppingModal from './components/ai/AiShoppingModal'
 import { CheckCircle2 } from 'lucide-react'
 
@@ -75,9 +74,6 @@ function MainContent() {
 
       {/* Floating Circular Cart Button (giống mẫu ảnh ở góc dưới phải) */}
       <FloatingCartButton />
-
-      {/* Mobile Fixed CTA Bar */}
-      <MobileCTA />
 
       {/* AI Đi Chợ Interactive Modal Flow */}
       <AiShoppingModal />

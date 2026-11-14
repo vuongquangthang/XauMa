@@ -8,6 +8,18 @@ export default function Header() {
   const [scrollProgress, setScrollProgress] = useState(0) // 0: Đang ở đỉnh Hero, 1: Đã cuộn qua Hero
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  // Detect mobile width to avoid desktop transform on mobile
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   useEffect(() => {
     const handleScroll = () => {
       // Tính toán tiến trình cuộn mượt mà từ 0% đến 100% trong khoảng từ 0px đến 350px
@@ -54,12 +66,12 @@ export default function Header() {
         Khi cuộn xuống (scrollProgress -> 1):
         Chuyển dần sang căn giữa màn hình `flex justify-center` với độ rộng chuẩn `max-w-6xl`.
       */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex transition-none justify-start">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex transition-none ${isMobile ? 'justify-center' : 'justify-start'}`}>
         <div
           style={{
             maxWidth: scrollProgress === 0 ? '1152px' : `${Math.round(1152 - scrollProgress * 48)}px`,
             width: '100%',
-            transform: `translateX(${Math.round(scrollProgress * 24)}px)`,
+            transform: isMobile ? 'none' : `translateX(${Math.round(scrollProgress * 24)}px)`,
           }}
           className="transition-none"
         >
