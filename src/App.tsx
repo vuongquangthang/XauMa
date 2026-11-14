@@ -3,7 +3,6 @@ import Header from './components/layout/Header'
 import Hero from './components/sections/Hero'
 import BrandStory from './components/sections/BrandStory'
 import ProductShowcase from './components/sections/ProductShowcase'
-import AiShoppingWizard from './components/sections/AiShoppingWizard'
 import WhyXauMa from './components/sections/WhyXauMa'
 import Traceability from './components/sections/Traceability'
 import SocialImpact from './components/sections/SocialImpact'
@@ -14,6 +13,7 @@ import Footer from './components/layout/Footer'
 import CartDrawer from './components/cart/CartDrawer'
 import FloatingCartButton from './components/cart/FloatingCartButton'
 import MobileCTA from './components/layout/MobileCTA'
+import AiShoppingModal from './components/ai/AiShoppingModal'
 import { CheckCircle2 } from 'lucide-react'
 
 function ToastNotification() {
@@ -48,10 +48,7 @@ function MainContent() {
         {/* Section 03 - Product Showcase: Khám phá 3 dòng hộp sau khi đã thấu hiểu giá trị thương hiệu */}
         <ProductShowcase />
 
-        {/* Section 04 - AI Đi Chợ: Cá nhân hóa lựa chọn rau củ thông minh */}
-        <AiShoppingWizard />
-
-        {/* Section 05 - Why Xấu Mã: 4 Cam kết chất lượng cốt lõi */}
+        {/* Section 04 - Why Xấu Mã: 4 Cam kết chất lượng cốt lõi */}
         <WhyXauMa />
 
         {/* Section 06 - Farm to Table / Traceability: Minh bạch nguồn gốc qua thẻ QR */}
@@ -81,6 +78,9 @@ function MainContent() {
 
       {/* Mobile Fixed CTA Bar */}
       <MobileCTA />
+
+      {/* AI Đi Chợ Interactive Modal Flow */}
+      <AiShoppingModal />
     </div>
   )
 }

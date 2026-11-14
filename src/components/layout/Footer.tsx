@@ -1,7 +1,9 @@
 import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react'
 import { ASSETS } from '../../constants/assets'
+import { useCart } from '../../store/cartContext'
 
 export default function Footer() {
+  const { openAiModal } = useCart()
   return (
     <footer className="bg-white border-t border-[#E8D5B5] pt-16 pb-24 lg:pb-16 px-4 sm:px-6 lg:px-8 text-left text-xs text-gray-600">
       <div className="max-w-7xl mx-auto">
@@ -58,13 +60,16 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#ai-shopping" className="hover:text-[#195D3B] transition-colors">
+                <button
+                  onClick={() => openAiModal()}
+                  className="hover:text-[#195D3B] transition-colors cursor-pointer text-left"
+                >
                   AI Đi Chợ cá nhân hóa
-                </a>
+                </button>
               </li>
               <li>
                 <a href="#why-xau-ma" className="hover:text-[#195D3B] transition-colors">
-                  Vì sao chọn Xấu Mã
+                  Cam kết chất lượng
                 </a>
               </li>
               <li>

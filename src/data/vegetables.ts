@@ -24,9 +24,9 @@ export const VEGETABLES: Vegetable[] = [
 ]
 
 export const EXCLUSION_OPTIONS = [
-  { id: 'hanh-tay', label: 'Hành tây', icon: '🧅' },
-  { id: 'ot-chuong', label: 'Ớt chuông', icon: '🫑' },
-  { id: 'dua', label: 'Dứa (Thơm)', icon: '🍍' },
-  { id: 'rau-cai', label: 'Rau cải đắng', icon: '🌿' },
-  { id: 'nam-huong', label: 'Nấm các loại', icon: '🍄', isAllergy: true },
+  { id: 'hanh-tay', name: 'Hành tây', label: 'Hành tây', icon: '🧅', reason: 'Mùi hăng nồng' },
+  { id: 'ot-chuong', name: 'Ớt chuông', label: 'Ớt chuông', icon: '🫑', reason: 'Vị hăng, khó ăn sống' },
+  { id: 'dua', name: 'Dứa vườn', label: 'Dứa (Thơm)', icon: '🍍', reason: 'Vị chua ngọt gắt' },
+  { id: 'rau-cai', name: 'Rau cải xanh', label: 'Rau cải xanh', icon: '🌿', reason: 'Vị đắng nhẹ' },
+  { id: 'nam-huong', name: 'Nấm tươi', label: 'Nấm các loại', icon: '🍄', reason: 'Dị ứng nấm', isAllergy: true },
 ]

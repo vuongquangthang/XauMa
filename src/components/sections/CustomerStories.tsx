@@ -1,4 +1,6 @@
 import { Star, Quote } from 'lucide-react'
+import { motion } from 'framer-motion'
+import BlurText from '../BlurText'
 
 export default function CustomerStories() {
   const reviews = [
@@ -35,21 +37,40 @@ export default function CustomerStories() {
     <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#F8F5E9] relative">
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <span className="text-xs uppercase font-extrabold tracking-widest text-[#438347] bg-[#91B34D]/20 px-3.5 py-1 rounded-full inline-block">
-            Góc trải nghiệm
-          </span>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-xs uppercase font-extrabold tracking-widest text-[#438347] bg-[#91B34D]/20 px-3.5 py-1 rounded-full inline-block">
+              Góc trải nghiệm
+            </span>
+          </motion.div>
+
           <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#195D3B] tracking-tight">
-            KHÔNG CẦN HOÀN HẢO ĐỂ CÓ MỘT BỮA CƠM NGON
+            <BlurText text="KHÔNG CẦN HOÀN HẢO ĐỂ CÓ MỘT BỮA CƠM NGON" delay={0.08} />
           </h2>
-          <p className="text-gray-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+
+          <motion.p
+            initial={{ filter: 'blur(8px)', opacity: 0, y: 15 }}
+            whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-gray-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed"
+          >
             Lắng nghe những cảm nhận chân thành từ những người bạn đã cùng Xấu Mã mở lòng với những củ quả "lạ hình".
-          </p>
+          </motion.p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 text-left">
           {reviews.map((rev, idx) => (
-            <div
+            <motion.div
               key={idx}
+              initial={{ filter: 'blur(8px)', opacity: 0, y: 24 }}
+              whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6, delay: 0.15 * idx, ease: 'easeOut' }}
               className="p-7 rounded-3xl bg-white border border-[#E8D5B5] shadow-card hover:shadow-card-hover transition-all flex flex-col justify-between"
             >
               <div>
@@ -67,12 +88,12 @@ export default function CustomerStories() {
                   Đã trải nghiệm: {rev.boxType}
                 </span>
 
-                <h3 className="font-heading font-bold text-base text-[#195D3B] mb-2">
-                  "{rev.title}"
+                <h3 className="font-heading font-bold text-base text-[#195D3B] mb-2 italic">
+                  &ldquo;{rev.title}&rdquo;
                 </h3>
 
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed italic">
-                  "{rev.comment}"
+                  &ldquo;{rev.comment}&rdquo;
                 </p>
               </div>
 
@@ -86,7 +107,7 @@ export default function CustomerStories() {
                   <div className="text-[11px] text-gray-500">{rev.role}</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

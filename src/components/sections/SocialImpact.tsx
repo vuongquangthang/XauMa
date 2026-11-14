@@ -1,24 +1,28 @@
-import { Sprout, Users, Recycle } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { ASSETS } from '../../constants/assets'
+import BlurText from '../BlurText'
 
 export default function SocialImpact() {
   const impacts = [
     {
-      icon: <Sprout className="w-8 h-8 text-[#195D3B]" />,
+      image: ASSETS.quirkyVeg1,
+      imageAlt: 'Nông sản hình dáng tự nhiên',
       title: 'Tối ưu hóa sản lượng nông trại',
       metricTarget: 'Mục tiêu chiến dịch',
       metricValue: 'Hạn chế lãng phí',
       desc: 'Giúp đưa những củ quả lành lặn bị từ chối chỉ vì lệch chuẩn ngoại hình đến thẳng căn bếp gia đình, giảm áp lực đổ bỏ cho nhà nông.',
     },
     {
-      icon: <Users className="w-8 h-8 text-[#195D3B]" />,
+      image: ASSETS.farmerSmileBanner,
+      imageAlt: 'Nông dân gắn bó cùng Xấu Mã',
       title: 'Hỗ trợ sinh kế bền vững',
       metricTarget: 'Hợp tác trực tiếp',
       metricValue: 'Bao tiêu công bằng',
       desc: 'Bà con nông dân tại các nông trại đối tác có thêm nguồn thu nhập ổn định và tự tin gắn bó với phương thức canh tác an toàn tự nhiên.',
     },
     {
-      icon: <Recycle className="w-8 h-8 text-[#195D3B]" />,
+      image: ASSETS.tuiGiayKraft,
+      imageAlt: 'Bao bì túi giấy thân thiện môi trường',
       title: 'Thúc đẩy tiêu dùng có trách nhiệm',
       metricTarget: 'Lối sống xanh',
       metricValue: 'Bao bì tái sinh',
@@ -30,56 +34,91 @@ export default function SocialImpact() {
     <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white border-b border-[#E8D5B5]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <span className="text-xs uppercase font-extrabold tracking-widest text-[#438347] bg-[#91B34D]/20 px-3.5 py-1 rounded-full inline-block">
-            Tác động xã hội
-          </span>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-xs uppercase font-extrabold tracking-widest text-[#438347] bg-[#91B34D]/20 px-3.5 py-1 rounded-full inline-block">
+              Tác động xã hội
+            </span>
+          </motion.div>
+
           <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#195D3B] tracking-tight">
-            MỖI CHIẾC HỘP NHỎ, MỘT GIÁ TRỊ LỚN HƠN
+            <BlurText text="MỖI CHIẾC HỘP NHỎ, MỘT GIÁ TRỊ LỚN HƠN" delay={0.08} />
           </h2>
-          <p className="text-gray-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+
+          <motion.p
+            initial={{ filter: 'blur(8px)', opacity: 0, y: 15 }}
+            whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-gray-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed"
+          >
             Hành trình cùng Xấu Mã không chỉ dừng lại ở bữa cơm ngon của bạn, mà còn là sự sẻ chia
             với đất mẹ và những người một nắng hai sương làm ra hạt gạo, củ rau.
-          </p>
+          </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 text-left">
+        <div className="grid md:grid-cols-3 gap-7 text-left">
           {impacts.map((imp, idx) => (
-            <div
+            <motion.div
               key={idx}
-              className="p-7 sm:p-8 rounded-3xl bg-[#F8F5E9] border border-[#E8D5B5] shadow-card hover:border-[#91B34D] transition-all flex flex-col justify-between"
+              initial={{ filter: 'blur(8px)', opacity: 0, y: 24 }}
+              whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6, delay: 0.15 * idx, ease: 'easeOut' }}
+              className="rounded-3xl bg-[#F8F5E9] border border-[#E8D5B5] shadow-card hover:border-[#91B34D] transition-all flex flex-col justify-between overflow-hidden group"
             >
               <div>
-                <div className="w-14 h-14 rounded-2xl bg-white border border-[#E8D5B5] flex items-center justify-center mb-6 shadow-xs">
-                  {imp.icon}
-                </div>
+                {/* Image Header with Badge */}
+                <div className="relative h-44 sm:h-48 overflow-hidden bg-white border-b border-[#E8D5B5]">
+                  <img
+                    src={imp.image}
+                    alt={imp.imageAlt}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
-                <div className="space-y-1 mb-3">
-                  <span className="text-[10px] uppercase font-bold text-[#438347] tracking-wider block">
-                    {imp.metricTarget}
-                  </span>
-                  <div className="font-heading font-extrabold text-2xl text-[#195D3B]">
-                    {imp.metricValue}
+                  {/* Metric overlay bottom-left */}
+                  <div className="absolute bottom-2.5 left-3.5 text-white">
+                    <span className="text-[10px] uppercase font-bold text-[#A3D95B] tracking-wider block">
+                      {imp.metricTarget}
+                    </span>
+                    <div className="font-heading font-extrabold text-lg sm:text-xl text-white drop-shadow-sm leading-tight">
+                      {imp.metricValue}
+                    </div>
                   </div>
                 </div>
 
-                <h3 className="font-heading font-bold text-base text-[#195D3B] mb-2">
-                  {imp.title}
-                </h3>
+                {/* Content Body */}
+                <div className="p-5 sm:p-6 space-y-2">
+                  <h3 className="font-heading font-bold text-base sm:text-lg text-[#195D3B] leading-snug">
+                    {imp.title}
+                  </h3>
 
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  {imp.desc}
-                </p>
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-light">
+                    {imp.desc}
+                  </p>
+                </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#E8D5B5]/60 text-[11px] text-gray-500 font-medium">
+              <div className="px-5 sm:px-6 pb-5 pt-3 border-t border-[#E8D5B5]/60 text-[11px] text-gray-500 font-medium">
                 Chiến dịch hành động vì nông sản Việt 2026
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Showcase Banner 3 Set & Lan tỏa lối sống xanh */}
-        <div className="mt-14 rounded-3xl overflow-hidden border border-[#E8D5B5] bg-[#F8F5E9] shadow-lg grid md:grid-cols-12 items-center">
+        <motion.div
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
+          whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="mt-14 rounded-3xl overflow-hidden border border-[#E8D5B5] bg-[#F8F5E9] shadow-lg grid md:grid-cols-12 items-center"
+        >
           <div className="md:col-span-6 relative h-64 sm:h-80 overflow-hidden">
             <img
               src={ASSETS.cheBienMonAn}
@@ -110,11 +149,7 @@ export default function SocialImpact() {
               </a>
             </div>
           </div>
-        </div>
-
-        <div className="mt-10 p-4 bg-[#F8F5E9] rounded-2xl border border-[#E8D5B5] max-w-xl mx-auto text-center text-xs text-gray-500 italic">
-          * Dữ liệu thống kê tác động cụ thể theo từng tháng sẽ được cập nhật công khai trên trang báo cáo thường niên của dự án.
-        </div>
+        </motion.div>
       </div>
     </section>
   )

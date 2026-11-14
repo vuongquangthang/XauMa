@@ -26,6 +26,11 @@ interface CartContextType {
   subtotal: number
   toastMessage: string | null
   showToast: (msg: string) => void
+  // AI Wizard Modal state
+  isAiModalOpen: boolean
+  aiInitialProduct: Product | null
+  openAiModal: (initialProduct?: Product) => void
+  closeAiModal: () => void
 }
 
 const CART_STORAGE_KEY = 'xau_ma_cart_v1'
@@ -61,6 +66,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [isOpen, setIsOpen] = useState(false)
   const [toastMessage, setToastMessage] = useState<string | null>(null)
+  const [isAiModalOpen, setIsAiModalOpen] = useState(false)
+  const [aiInitialProduct, setAiInitialProduct] = useState<Product | null>(null)
+
+  const openAiModal = (initialProduct?: Product) => {
+    setAiInitialProduct(initialProduct || null)
+    setIsAiModalOpen(true)
+  }
+
+  const closeAiModal = () => {
+    setIsAiModalOpen(false)
+  }
 
   useEffect(() => {
     try {
@@ -141,6 +157,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         subtotal,
         toastMessage,
         showToast,
+        isAiModalOpen,
+        aiInitialProduct,
+        openAiModal,
+        closeAiModal,
       }}
     >
       {children}
