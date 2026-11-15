@@ -52,7 +52,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
     return errs
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length > 0) {
@@ -63,13 +63,56 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
     setErrors({})
     setIsSubmitting(true)
 
-    // Mô phỏng tạo đơn hàng
-    setTimeout(() => {
-      const demoOrderCode = `XM-${Math.floor(100000 + Math.random() * 900000)}`
+    const generatedOrderCode = `XM-${Math.floor(100000 + Math.random() * 900000)}`
+
+    // Chuẩn bị chi tiết đơn hàng dạng text để đọc rõ ràng trong Dashboard Netlify
+    const orderDetailsText = items
+      .map((item, idx) => {
+        let details = `${idx + 1}. ${item.product.name} x ${item.quantity} hộp (${(item.product.price * item.quantity).toLocaleString('vi-VN')}đ)`
+        if (item.customization) {
+          const pref =
+            item.customization.preference === 'leaf'
+              ? 'Nhiều rau ăn lá'
+              : item.customization.preference === 'root_fruit'
+              ? 'Nhiều củ quả'
+              : 'Cân bằng'
+          details += `\n   - Khẩu vị AI: ${pref}`
+          if (item.customization.excludedFoods.length > 0) {
+            details += `\n   - Bỏ loại: ${item.customization.excludedFoods.join(', ')}`
+          }
+        }
+        return details
+      })
+      .join('\n\n')
+
+    // Dữ liệu gửi lên Netlify Forms
+    const payload = {
+      'form-name': 'order-form',
+      orderCode: generatedOrderCode,
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      address: form.address.trim(),
+      note: form.note.trim() || 'Không có',
+      itemCount: items.reduce((sum, item) => sum + item.quantity, 0).toString(),
+      orderDetails: orderDetailsText,
+      subtotal: `${subtotal.toLocaleString('vi-VN')}đ`,
+      shippingFee: shippingFee === 0 ? 'Miễn phí' : `${shippingFee.toLocaleString('vi-VN')}đ`,
+      totalAmount: `${totalAmount.toLocaleString('vi-VN')}đ`,
+    }
+
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(payload).toString(),
+      })
+    } catch (error) {
+      console.warn('Lỗi khi gửi lên Netlify Forms:', error)
+    } finally {
       setIsSubmitting(false)
-      setOrderSuccess(demoOrderCode)
+      setOrderSuccess(generatedOrderCode)
       clearCart()
-    }, 1100)
+    }
   }
 
   return (
@@ -111,7 +154,15 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
         {/* Nội dung cuộn bên trong (Scrollable Body) nằm hoàn toàn trong viền bo góc */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden p-5 sm:p-7 space-y-6">
           {!orderSuccess ? (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              onSubmit={handleSubmit}
+              name="order-form"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              className="space-y-6"
+            >
+              <input type="hidden" name="form-name" value="order-form" />
+              <input type="hidden" name="bot-field" />
               {/* Customer Inputs Section */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-[#E8D5B5] pb-2">

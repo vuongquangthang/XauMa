@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Sparkles, Check, ArrowRight, ArrowLeft, RotateCcw, X, ShoppingBag } from 'lucide-react'
+import { Sparkles, Check, ArrowRight, ArrowLeft, RotateCcw, X, ShoppingBag, Plus } from 'lucide-react'
 import { PRODUCTS, Product } from '../../data/products'
 import { EXCLUSION_OPTIONS } from '../../data/vegetables'
 import { generateAiRecommendation, AiShoppingRecommendation } from '../../services/aiService'
@@ -12,6 +12,8 @@ export default function AiShoppingModal() {
   const [selectedProduct, setSelectedProduct] = useState<Product>(PRODUCTS[0])
   const [excludedFoods, setExcludedFoods] = useState<string[]>([])
   const [preference, setPreference] = useState<'leaf' | 'root_fruit' | 'balanced'>('balanced')
+  const [showOtherInput, setShowOtherInput] = useState<boolean>(false)
+  const [customExclusionInput, setCustomExclusionInput] = useState<string>('')
   const [recommendation, setRecommendation] = useState<AiShoppingRecommendation | null>(null)
 
   // Sync initial product when opened
@@ -26,6 +28,8 @@ export default function AiShoppingModal() {
         setCurrentStep(1)
       }
       setExcludedFoods([])
+      setShowOtherInput(false)
+      setCustomExclusionInput('')
       setPreference('balanced')
       setRecommendation(null)
     }
@@ -37,6 +41,16 @@ export default function AiShoppingModal() {
     setExcludedFoods((prev) =>
       prev.includes(foodName) ? prev.filter((item) => item !== foodName) : [...prev, foodName]
     )
+  }
+
+  const handleAddCustomExclusion = (e?: React.FormEvent) => {
+    if (e) e.preventDefault()
+    const trimmed = customExclusionInput.trim()
+    if (!trimmed) return
+    if (!excludedFoods.includes(trimmed)) {
+      setExcludedFoods((prev) => [...prev, trimmed])
+    }
+    setCustomExclusionInput('')
   }
 
   const handleGenerateResult = () => {
@@ -242,7 +256,108 @@ export default function AiShoppingModal() {
                       </button>
                     )
                   })}
+
+                  {/* NÚT BẤM "KHÁC..." NHƯ CÁC OPTION KHÁC */}
+                  {(() => {
+                    const customItems = excludedFoods.filter(
+                      (name) => !EXCLUSION_OPTIONS.some((opt) => opt.name === name || opt.id === name)
+                    )
+                    const isOtherActive = showOtherInput || customItems.length > 0
+
+                    return (
+                      <button
+                        type="button"
+                        onClick={() => setShowOtherInput(!showOtherInput)}
+                        className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2.5 ${
+                          isOtherActive
+                            ? 'border-red-400 bg-red-50 text-red-900 ring-2 ring-red-400 shadow-xs'
+                            : 'border-[#E8D5B5] hover:border-gray-300 bg-white text-gray-800'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span className="text-2xl shrink-0">✍️</span>
+                          <div className="min-w-0">
+                            <div className="text-xs sm:text-sm font-bold text-gray-900 truncate">
+                              Món khác
+                            </div>
+                            <div className="text-[10px] text-gray-500 font-medium truncate">
+                              {customItems.length > 0
+                                ? `Đã thêm (${customItems.length})`
+                                : 'Tự nhập món kiêng'}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors ${
+                            isOtherActive
+                              ? 'bg-red-500 border-red-500 text-white'
+                              : 'border-gray-300 bg-white'
+                          }`}
+                        >
+                          {isOtherActive && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                        </div>
+                      </button>
+                    )
+                  })()}
                 </div>
+
+                {/* KHUNG NHẬP LIỆU CHỈ HIỆN KHI BẤM CHỌN "MÓN KHÁC" HOẶC ĐÃ CÓ MÓN TỰ NHẬP */}
+                {(showOtherInput ||
+                  excludedFoods.filter(
+                    (name) => !EXCLUSION_OPTIONS.some((opt) => opt.name === name || opt.id === name)
+                  ).length > 0) && (
+                  <div className="p-3.5 rounded-2xl bg-[#F8F5E9]/80 border border-[#E8D5B5] space-y-2.5 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-bold text-[#195D3B] flex items-center gap-1.5">
+                        <span>Nhập tên loại rau củ bạn muốn loại trừ:</span>
+                      </label>
+                      <span className="text-[10px] text-gray-500">Ví dụ: Cần tây, Khổ qua, Ngò rí...</span>
+                    </div>
+
+                    <form onSubmit={handleAddCustomExclusion} className="flex gap-2">
+                      <input
+                        type="text"
+                        autoFocus
+                        value={customExclusionInput}
+                        onChange={(e) => setCustomExclusionInput(e.target.value)}
+                        placeholder="Gõ tên loại rau củ không ăn được rồi bấm Thêm..."
+                        className="flex-1 px-3.5 py-2 rounded-xl border border-[#E8D5B5] text-xs sm:text-sm bg-white outline-none focus:border-[#195D3B] focus:ring-2 focus:ring-[#195D3B]/10"
+                      />
+                      <button
+                        type="submit"
+                        disabled={!customExclusionInput.trim()}
+                        className="px-4 py-2 rounded-xl bg-[#195D3B] hover:bg-[#144b30] disabled:opacity-40 text-white text-xs font-bold flex items-center gap-1 shrink-0 transition-all cursor-pointer shadow-xs"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>Thêm</span>
+                      </button>
+                    </form>
+
+                    {/* Danh sách các món do người dùng tự nhập */}
+                    {excludedFoods.filter((name) => !EXCLUSION_OPTIONS.some((opt) => opt.name === name || opt.id === name)).length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {excludedFoods
+                          .filter((name) => !EXCLUSION_OPTIONS.some((opt) => opt.name === name || opt.id === name))
+                          .map((customName) => (
+                            <span
+                              key={customName}
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-100/90 text-red-900 text-xs font-semibold border border-red-200 shadow-2xs"
+                            >
+                              <span>{customName}</span>
+                              <button
+                                type="button"
+                                onClick={() => handleToggleExclusion(customName)}
+                                className="text-red-500 hover:text-red-700 font-bold ml-0.5 cursor-pointer p-0.5"
+                                title="Xoá món này"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </span>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <div className="flex items-center justify-between pt-3 border-t border-[#E8D5B5]/60">
                   <button

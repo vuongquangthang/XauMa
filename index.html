@@ -17,6 +17,22 @@
     />
   </head>
   <body class="bg-[#F8F5E9] text-[#195D3B] antialiased selection:bg-[#91B34D] selection:text-white">
+    <!-- Netlify Forms Hidden HTML detection for SPA (React / Vite) -->
+    <form name="order-form" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="order-form" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="orderCode" />
+      <input type="text" name="name" />
+      <input type="text" name="phone" />
+      <input type="text" name="address" />
+      <textarea name="note"></textarea>
+      <input type="text" name="itemCount" />
+      <textarea name="orderDetails"></textarea>
+      <input type="text" name="subtotal" />
+      <input type="text" name="shippingFee" />
+      <input type="text" name="totalAmount" />
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
