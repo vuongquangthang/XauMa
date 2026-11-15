@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Sparkles, Check, ArrowRight, ArrowLeft, RotateCcw, X, ShoppingBag, Plus } from 'lucide-react'
 import { PRODUCTS, Product } from '../../data/products'
 import { EXCLUSION_OPTIONS } from '../../data/vegetables'
@@ -15,27 +16,6 @@ export default function AiShoppingModal() {
   const [showOtherInput, setShowOtherInput] = useState<boolean>(false)
   const [customExclusionInput, setCustomExclusionInput] = useState<string>('')
   const [recommendation, setRecommendation] = useState<AiShoppingRecommendation | null>(null)
-
-  // Sync initial product when opened
-  useEffect(() => {
-    if (isAiModalOpen) {
-      if (aiInitialProduct) {
-        setSelectedProduct(aiInitialProduct)
-        // If user already clicked a specific product, jump straight to Step 2 (Exclude)
-        setCurrentStep(2)
-      } else {
-        setSelectedProduct(PRODUCTS[0])
-        setCurrentStep(1)
-      }
-      setExcludedFoods([])
-      setShowOtherInput(false)
-      setCustomExclusionInput('')
-      setPreference('balanced')
-      setRecommendation(null)
-    }
-  }, [isAiModalOpen, aiInitialProduct])
-
-  if (!isAiModalOpen) return null
 
   const handleToggleExclusion = (foodName: string) => {
     setExcludedFoods((prev) =>
@@ -74,20 +54,53 @@ export default function AiShoppingModal() {
     openCart()
   }
 
-  return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-        onClick={closeAiModal}
-      />
+  // Sync initial product when opened
+  useEffect(() => {
+    if (isAiModalOpen) {
+      if (aiInitialProduct) {
+        setSelectedProduct(aiInitialProduct)
+        // If user already clicked a specific product, jump straight to Step 2 (Exclude)
+        setCurrentStep(2)
+      } else {
+        setSelectedProduct(PRODUCTS[0])
+        setCurrentStep(1)
+      }
+      setExcludedFoods([])
+      setShowOtherInput(false)
+      setCustomExclusionInput('')
+      setPreference('balanced')
+      setRecommendation(null)
+    }
+  }, [isAiModalOpen, aiInitialProduct])
 
-      {/* Modal Shell */}
-      <div className="min-h-full flex items-center justify-center p-3 sm:p-4 md:p-6 relative z-10">
-        <div
-          className="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-[#E8D5B5] overflow-hidden my-4 text-left animate-in fade-in zoom-in-95 duration-200"
-          onClick={(e) => e.stopPropagation()}
-        >
+  return (
+    <AnimatePresence>
+      {isAiModalOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={closeAiModal}
+          />
+
+          {/* Modal Shell */}
+          <div className="min-h-full flex items-center justify-center p-3 sm:p-4 md:p-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 15 }}
+              transition={{
+                type: 'spring',
+                damping: 25,
+                stiffness: 350,
+              }}
+              className="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-[#E8D5B5] overflow-hidden my-4 text-left"
+              onClick={(e) => e.stopPropagation()}
+            >
           {/* Header */}
           <div className="px-5 py-4 sm:px-6 sm:py-5 border-b border-[#E8D5B5] flex items-center justify-between bg-[#F8F5E9]/80">
             <div className="flex items-center gap-2.5">
@@ -540,8 +553,10 @@ export default function AiShoppingModal() {
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+      </div>
+      )}
+    </AnimatePresence>
   )
 }

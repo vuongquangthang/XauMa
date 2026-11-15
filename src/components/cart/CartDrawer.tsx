@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { X, ShoppingBag, Plus, Minus, Trash2, ArrowRight } from 'lucide-react'
 import { useCart } from '../../store/cartContext'
 import CheckoutModal from '../checkout/CheckoutModal'
@@ -14,35 +15,51 @@ export default function CartDrawer() {
 
   return (
     <>
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-50 overflow-hidden bg-black/50 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
-          onClick={closeCart}
-        >
-          <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
-            <div
-              className="w-screen max-w-md bg-white shadow-2xl flex flex-col border-l border-[#E8D5B5]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Drawer Header */}
-              <div className="p-5 border-b border-[#E8D5B5] flex items-center justify-between bg-[#F8F5E9]">
-                <div className="flex items-center gap-2.5">
-                  <ShoppingBag className="w-5 h-5 text-[#195D3B]" />
-                  <h3 className="font-heading font-extrabold text-lg text-[#195D3B]">
-                    Giỏ hàng của bạn ({itemCount})
-                  </h3>
-                </div>
-                <button
-                  onClick={closeCart}
-                  className="p-2 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-white transition-colors"
-                  aria-label="Đóng giỏ hàng"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+      <AnimatePresence>
+        {isOpen && (
+          <div className="fixed inset-0 z-50 overflow-hidden">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-xs"
+              onClick={closeCart}
+            />
 
-              {/* Drawer Content */}
-              <div className="flex-1 overflow-y-auto p-5 space-y-4">
+            <div className="absolute inset-y-0 right-0 max-w-full flex pl-10 pointer-events-none">
+              <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{
+                  type: 'spring',
+                  damping: 28,
+                  stiffness: 300,
+                }}
+                className="w-screen max-w-md bg-white shadow-2xl flex flex-col border-l border-[#E8D5B5] pointer-events-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Drawer Header */}
+                <div className="p-5 border-b border-[#E8D5B5] flex items-center justify-between bg-[#F8F5E9]">
+                  <div className="flex items-center gap-2.5">
+                    <ShoppingBag className="w-5 h-5 text-[#195D3B]" />
+                    <h3 className="font-heading font-extrabold text-lg text-[#195D3B]">
+                      Giỏ hàng của bạn ({itemCount})
+                    </h3>
+                  </div>
+                  <button
+                    onClick={closeCart}
+                    className="p-2 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-white transition-colors"
+                    aria-label="Đóng giỏ hàng"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Drawer Content */}
+                <div className="flex-1 overflow-y-auto p-5 space-y-4">
                 {items.length === 0 ? (
                   <div className="text-center py-16 space-y-4">
                     <div className="w-16 h-16 rounded-full bg-[#F8F5E9] text-[#195D3B] flex items-center justify-center mx-auto border border-[#E8D5B5]">
@@ -174,10 +191,11 @@ export default function CartDrawer() {
                   </button>
                 </div>
               )}
+              </motion.div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
       {/* Checkout Modal Trigger */}
       <CheckoutModal isOpen={checkoutOpen} onClose={() => setCheckoutOpen(false)} />

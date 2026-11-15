@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   X,
   CheckCircle2,
@@ -116,14 +117,29 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/65 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-200"
-      onClick={onClose}
-    >
-      <div
-        className="relative bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-[#E8D5B5] max-h-[90vh] flex flex-col overflow-hidden text-left"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-3 sm:p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 bg-black/65 backdrop-blur-md"
+            onClick={onClose}
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 15 }}
+            transition={{
+              type: 'spring',
+              damping: 25,
+              stiffness: 350,
+            }}
+            className="relative bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-[#E8D5B5] max-h-[90vh] flex flex-col overflow-hidden text-left z-10"
+            onClick={(e) => e.stopPropagation()}
+          >
         {/* Modal Top Header with Brand Pattern (Giảm chiều cao, tinh gọn, hiện đại) */}
         <div className="relative bg-gradient-to-r from-[#195D3B] via-[#1F6B44] to-[#195D3B] text-white px-5 sm:px-6 py-4 overflow-hidden shrink-0">
           {/* Subtle light accents */}
@@ -416,7 +432,9 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
           </div>
         )}
         </div>
+        </motion.div>
       </div>
-    </div>
+      )}
+    </AnimatePresence>
   )
 }

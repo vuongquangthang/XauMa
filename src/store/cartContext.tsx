@@ -31,6 +31,10 @@ interface CartContextType {
   aiInitialProduct: Product | null
   openAiModal: (initialProduct?: Product) => void
   closeAiModal: () => void
+  // Consultation Modal state
+  isConsultationModalOpen: boolean
+  openConsultationModal: () => void
+  closeConsultationModal: () => void
 }
 
 const CART_STORAGE_KEY = 'xau_ma_cart_v1'
@@ -77,6 +81,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const closeAiModal = () => {
     setIsAiModalOpen(false)
   }
+
+  // Consultation Modal State
+  const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false)
+  const openConsultationModal = () => setIsConsultationModalOpen(true)
+  const closeConsultationModal = () => setIsConsultationModalOpen(false)
 
   useEffect(() => {
     try {
@@ -161,6 +170,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         aiInitialProduct,
         openAiModal,
         closeAiModal,
+        isConsultationModalOpen,
+        openConsultationModal,
+        closeConsultationModal,
       }}
     >
       {children}

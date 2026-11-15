@@ -129,7 +129,7 @@ export default function BrandStory() {
               </div>
 
               {/* Callout nhỏ đối sánh dáng củ quả tự nhiên */}
-              <div className="p-3 rounded-2xl bg-[#F8F5E9] border border-[#E8D5B5] flex items-center gap-3 text-left">
+              <div className="p-3 rounded-2xl bg-[#F8F5E9] shadow-md flex items-center gap-3 text-left">
                 <img
                   src={ASSETS.quirkyVeg2}
                   alt="Củ quả độc lạ Xấu Mã"
@@ -179,8 +179,8 @@ export default function BrandStory() {
               </div>
 
               {/* Thông điệp cốt lõi */}
-              <div className="p-3.5 rounded-2xl bg-[#F8F5E9] border-2 border-[#195D3B] text-center">
-                <div className="font-heading font-extrabold text-base sm:text-lg text-[#195D3B]">
+              <div className="p-4 rounded-2xl bg-[#F8F5E9] shadow-md text-center">
+                <div className="font-heading font-extrabold text-base sm:text-lg text-[#195D3B] tracking-wide">
                   CHỌN XẤU MÃ – CHỌN GIÁ TRỊ KHÔNG XẤU!
                 </div>
               </div>

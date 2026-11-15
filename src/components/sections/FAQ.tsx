@@ -52,10 +52,10 @@ export default function FAQ() {
                 whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.5, delay: 0.08 * idx, ease: 'easeOut' }}
-                className={`rounded-2xl border transition-colors duration-200 overflow-hidden ${
+                className={`rounded-2xl transition-all duration-300 overflow-hidden ${
                   isOpen
-                    ? 'border-[#195D3B] bg-[#F8F5E9] shadow-sm'
-                    : 'border-[#E8D5B5] bg-white hover:border-[#91B34D]'
+                    ? 'bg-[#F4EFE6] shadow-md'
+                    : 'bg-[#FAF7F0] shadow-sm hover:shadow-md hover:bg-[#F4EFE6]'
                 }`}
               >
                 <button

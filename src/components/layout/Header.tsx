@@ -4,7 +4,7 @@ import { ASSETS } from '../../constants/assets'
 import { useCart } from '../../store/cartContext'
 
 export default function Header() {
-  const { openAiModal } = useCart()
+  const { openAiModal, openConsultationModal } = useCart()
   const [scrollProgress, setScrollProgress] = useState(0) // 0: Đang ở đỉnh Hero, 1: Đã cuộn qua Hero
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -34,10 +34,9 @@ export default function Header() {
   }, [])
 
   const navLinks = [
-    { label: 'Câu chuyện thương hiệu', href: '#brand-story' },
+    { label: 'Câu chuyện', href: '#brand-story' },
     { label: 'Sản phẩm', href: '#products' },
     { label: 'AI Đi Chợ', href: '#ai-shopping' },
-    { label: 'Cam kết chất lượng', href: '#why-xau-ma' },
     { label: 'Nguồn gốc QR', href: '#traceability' },
   ]
 
@@ -139,18 +138,32 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Right Actions: Nút Pill Đặt mua ngay */}
-          <div className="flex items-center gap-2 shrink-0 whitespace-nowrap">
+          {/* Right Actions: Nút Đăng ký tư vấn + Nút Pill Đặt mua ngay */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap">
+            {/* Nút Đăng ký tư vấn */}
+            <button
+              onClick={openConsultationModal}
+              style={{
+                paddingTop: `${(8 - scrollProgress * 2).toFixed(1)}px`,
+                paddingBottom: `${(8 - scrollProgress * 2).toFixed(1)}px`,
+                paddingLeft: `${Math.round(14 - scrollProgress * 2)}px`,
+                paddingRight: `${Math.round(14 - scrollProgress * 2)}px`,
+              }}
+              className="inline-flex items-center justify-center rounded-full bg-[#195D3B]/10 hover:bg-[#195D3B]/15 text-[#195D3B] font-bold text-[11px] sm:text-xs shadow-2xs hover:scale-105 active:scale-95 tracking-tight whitespace-nowrap shrink-0 transition-all duration-300 cursor-pointer"
+            >
+              <span className="whitespace-nowrap">Đăng ký tư vấn</span>
+            </button>
+
             {/* Pill CTA Button */}
             <a
               href="#products"
               style={{
                 paddingTop: `${(8 - scrollProgress * 2).toFixed(1)}px`,
                 paddingBottom: `${(8 - scrollProgress * 2).toFixed(1)}px`,
-                paddingLeft: `${Math.round(18 - scrollProgress * 4)}px`,
-                paddingRight: `${Math.round(18 - scrollProgress * 4)}px`,
+                paddingLeft: `${Math.round(16 - scrollProgress * 3)}px`,
+                paddingRight: `${Math.round(16 - scrollProgress * 3)}px`,
               }}
-              className="inline-flex items-center justify-center rounded-full bg-[#195D3B] hover:bg-[#144b30] text-white font-bold text-xs shadow-md hover:scale-102 active:scale-98 tracking-tight whitespace-nowrap shrink-0 transition-transform"
+              className="inline-flex items-center justify-center rounded-full bg-[#195D3B] hover:bg-[#144b30] text-white font-bold text-[11px] sm:text-xs shadow-md hover:scale-105 hover:shadow-lg hover:shadow-[#195D3B]/25 active:scale-95 tracking-tight whitespace-nowrap shrink-0 transition-all duration-300"
             >
               <span className="whitespace-nowrap">Đặt mua ngay</span>
             </a>
@@ -158,7 +171,7 @@ export default function Header() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-1.5 rounded-full bg-gray-50 border border-gray-200 text-[#195D3B] hover:bg-gray-100 transition-all cursor-pointer shrink-0"
+              className="xl:hidden p-1.5 rounded-full bg-gray-50 text-[#195D3B] hover:bg-gray-100 transition-all cursor-pointer shrink-0"
               aria-label="Menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -197,7 +210,16 @@ export default function Header() {
               </a>
             )
           })}
-          <div className="pt-2">
+          <div className="pt-2 space-y-2">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false)
+                openConsultationModal()
+              }}
+              className="block w-full py-2.5 rounded-full text-[#195D3B] bg-[#195D3B]/10 hover:bg-[#195D3B]/15 text-center text-sm font-bold shadow-xs whitespace-nowrap cursor-pointer transition-colors"
+            >
+              <span className="whitespace-nowrap">Đăng ký tư vấn miễn phí</span>
+            </button>
             <a
               href="#products"
               onClick={() => setMobileMenuOpen(false)}

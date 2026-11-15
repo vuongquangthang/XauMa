@@ -73,7 +73,7 @@ export default function WhyXauMa() {
                   whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.15 }}
                   transition={{ duration: 0.6, delay: 0.15 * idx, ease: 'easeOut' }}
-                  className="p-5 rounded-2xl bg-[#F8F5E9] border border-[#E8D5B5] space-y-2.5 hover:border-[#91B34D] transition-colors text-left"
+                  className="p-5 rounded-2xl bg-[#F8F5E9] shadow-md hover:shadow-lg transition-shadow text-left"
                 >
                   {/* Hàng trên cùng: Kí tự icon và Tiêu đề đặt cùng một hàng */}
                   <div className="flex items-center gap-3">
@@ -124,7 +124,7 @@ export default function WhyXauMa() {
               whileInView={{ scale: 1, opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="absolute -bottom-5 -left-5 bg-white p-4 rounded-2xl border border-[#E8D5B5] shadow-lg max-w-xs text-left hidden sm:block"
+              className="absolute -bottom-5 -left-5 bg-white p-4 rounded-2xl shadow-xl max-w-xs text-left hidden sm:block"
             >
               <p className="text-xs font-bold text-[#195D3B] italic">
                 &ldquo;Xấu mã bên ngoài – Chuẩn chất bên trong!&rdquo;

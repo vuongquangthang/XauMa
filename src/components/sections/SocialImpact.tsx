@@ -69,7 +69,7 @@ export default function SocialImpact() {
               whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6, delay: 0.15 * idx, ease: 'easeOut' }}
-              className="rounded-3xl bg-[#F8F5E9] border border-[#E8D5B5] shadow-card hover:border-[#91B34D] transition-all flex flex-col justify-between overflow-hidden group"
+              className="rounded-3xl bg-[#F8F5E9] shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group"
             >
               <div>
                 {/* Image Header with Badge */}
@@ -117,7 +117,7 @@ export default function SocialImpact() {
           whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="mt-14 rounded-3xl overflow-hidden border border-[#E8D5B5] bg-[#F8F5E9] shadow-lg grid md:grid-cols-12 items-center"
+          className="mt-14 rounded-3xl overflow-hidden bg-[#F8F5E9] shadow-xl hover:shadow-2xl transition-shadow duration-300 grid md:grid-cols-12 items-center"
         >
           <div className="md:col-span-6 relative h-64 sm:h-80 overflow-hidden">
             <img

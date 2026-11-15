@@ -98,8 +98,8 @@ export default function ProductShowcase() {
                 }}
                 className={`rounded-3xl p-5 sm:p-6 flex flex-col justify-between text-left cursor-pointer relative min-w-0 lg:h-[590px] ${
                   isExpanded
-                    ? 'lg:flex-[1.2] bg-[#F8F5E9] border-2 border-[#195D3B] shadow-xl z-20 ring-4 ring-[#195D3B]/5'
-                    : 'lg:flex-[0.9] bg-white border border-[#E8D5B5] shadow-xs hover:border-[#91B34D] opacity-90 hover:opacity-100 z-10'
+                    ? 'lg:flex-[1.2] bg-[#F4EFE6] shadow-2xl z-20'
+                    : 'lg:flex-[0.9] bg-[#FAF7F0] shadow-lg hover:shadow-xl hover:bg-[#F4EFE6] opacity-95 hover:opacity-100 z-10'
                 }`}
               >
                 {/* Floating Top Badge */}
@@ -132,7 +132,7 @@ export default function ProductShowcase() {
 
                 <div>
                   {/* Product Image Frame: Chuẩn tỉ lệ 3:2 khít chính xác với ảnh gốc 1536x1024, không lệch 1 pixel */}
-                  <div className="rounded-2xl overflow-hidden aspect-[3/2] w-full bg-[#F7DFC7] border border-[#E8D5B5] relative mb-3.5 shadow-xs shrink-0 flex items-center justify-center">
+                  <div className="rounded-2xl overflow-hidden aspect-[3/2] w-full bg-[#F7DFC7] relative mb-3.5 shadow-sm shrink-0 flex items-center justify-center">
                     <img
                       src={prod.image}
                       alt={prod.name}
@@ -197,9 +197,9 @@ export default function ProductShowcase() {
                 <div className="pt-2 border-t border-[#E8D5B5]/60 flex items-center gap-2">
                   <button
                     onClick={(e) => handleSelectProduct(prod, e)}
-                    className={`flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm shadow-md flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${
+                    className={`flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm shadow-md flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 ${
                       isExpanded
-                        ? 'bg-[#195D3B] hover:bg-[#144b30] text-white shadow-[#195D3B]/20'
+                        ? 'bg-[#195D3B] hover:bg-[#144b30] text-white shadow-[#195D3B]/20 hover:shadow-lg'
                         : 'bg-[#91B34D] hover:bg-[#7e9d40] text-white'
                     }`}
                   >
@@ -213,7 +213,7 @@ export default function ProductShowcase() {
                       openAiModal(prod)
                     }}
                     title="Tùy chỉnh thành phần bằng AI Đi Chợ"
-                    className="px-3 py-2.5 rounded-xl bg-white hover:bg-[#F8F5E9] text-[#195D3B] font-bold text-xs border border-[#E8D5B5] hover:border-[#195D3B] flex items-center justify-center gap-1 transition-colors shrink-0 cursor-pointer"
+                    className="px-3 py-2.5 rounded-xl bg-[#DE8753]/10 hover:bg-[#DE8753]/20 text-[#DE8753] font-bold text-xs flex items-center justify-center gap-1 transition-all duration-300 hover:scale-105 active:scale-95 shrink-0 cursor-pointer shadow-2xs"
                   >
                     <Sparkles className="w-3.5 h-3.5 text-[#DE8753]" />
                     <span className="text-[11px] font-bold">AI</span>
@@ -230,7 +230,7 @@ export default function ProductShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.4, delay: 0.15 }}
-          className="mt-8 p-3 sm:p-3.5 rounded-2xl bg-[#F8F5E9] border border-[#E8D5B5] max-w-lg mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 text-left shadow-xs"
+          className="mt-8 p-3 sm:p-3.5 rounded-2xl bg-[#F8F5E9] max-w-lg mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 text-left shadow-md"
         >
           <div className="flex items-center gap-2">
             <span className="text-xl">💡</span>
@@ -240,7 +240,7 @@ export default function ProductShowcase() {
           </div>
           <button
             onClick={() => openAiModal()}
-            className="shrink-0 px-3 py-1.5 rounded-xl bg-white hover:bg-[#195D3B] text-[#195D3B] hover:text-white border border-[#E8D5B5] text-xs font-bold transition-all flex items-center gap-1 shadow-xs cursor-pointer"
+            className="shrink-0 px-3.5 py-1.5 rounded-xl bg-[#195D3B] hover:bg-[#144b30] text-white text-xs font-bold transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-1 shadow-xs cursor-pointer"
           >
             <span>Thử ngay</span>
             <ArrowRight className="w-3 h-3" />

@@ -52,7 +52,7 @@ export default function Traceability() {
                   className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
                 />
               </div>
-              <div className="p-4 bg-white text-left flex items-center justify-between border-t border-[#E8D5B5] shrink-0">
+              <div className="p-4 bg-white text-left flex items-center justify-between shrink-0">
                 <div className="flex items-center gap-2.5">
                   <QrCode className="w-5 h-5 text-[#195D3B]" />
                   <span className="text-xs font-bold text-[#195D3B]">
@@ -71,7 +71,7 @@ export default function Traceability() {
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
             className="lg:col-span-6 text-left flex flex-col h-full"
           >
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8D5B5] shadow-card space-y-5 relative h-full flex flex-col justify-between">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-shadow space-y-5 relative h-full flex flex-col justify-between">
               {/* Demo Badge */}
               <div className="flex justify-between items-center pb-4 border-b border-[#E8D5B5]">
                 <div className="flex items-center gap-2">

@@ -71,7 +71,7 @@ export default function CustomerStories() {
               whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6, delay: 0.15 * idx, ease: 'easeOut' }}
-              className="p-7 rounded-3xl bg-white border border-[#E8D5B5] shadow-card hover:shadow-card-hover transition-all flex flex-col justify-between"
+              className="p-7 rounded-3xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 {/* Rating & Quote Icon */}

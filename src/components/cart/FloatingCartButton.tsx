@@ -7,7 +7,7 @@ export default function FloatingCartButton() {
   return (
     <button
       onClick={openCart}
-      className="fixed bottom-6 right-4 sm:right-6 z-40 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#195D3B] hover:bg-[#144b30] text-white shadow-2xl border-2 border-white/70 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer group"
+      className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 z-40 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#195D3B] hover:bg-[#144b30] text-white shadow-2xl flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer group"
       aria-label="Xem giỏ hàng"
       title="Mở giỏ hàng"
     >

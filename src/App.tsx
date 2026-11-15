@@ -13,6 +13,7 @@ import Footer from './components/layout/Footer'
 import CartDrawer from './components/cart/CartDrawer'
 import FloatingCartButton from './components/cart/FloatingCartButton'
 import AiShoppingModal from './components/ai/AiShoppingModal'
+import ConsultationModal from './components/consultation/ConsultationModal'
 import { CheckCircle2 } from 'lucide-react'
 
 function ToastNotification() {
@@ -28,6 +29,8 @@ function ToastNotification() {
 }
 
 function MainContent() {
+  const { isConsultationModalOpen, closeConsultationModal } = useCart()
+
   return (
     <div className="min-h-screen bg-[#F8F5E9] text-[#1A3828] font-body flex flex-col selection:bg-[#91B34D] selection:text-white">
       {/* Toast Notification */}
@@ -77,6 +80,12 @@ function MainContent() {
 
       {/* AI Đi Chợ Interactive Modal Flow */}
       <AiShoppingModal />
+
+      {/* Đăng ký tư vấn Modal Flow */}
+      <ConsultationModal
+        isOpen={isConsultationModalOpen}
+        onClose={closeConsultationModal}
+      />
     </div>
   )
 }
